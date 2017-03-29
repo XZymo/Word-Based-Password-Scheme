@@ -44,7 +44,7 @@ public final class PasswordGenerator {
 						hasNumber = true;
 					}
 				}
-				password += WORD_SPACE[Math.abs(generator.nextInt()) % WORD_COUNT];
+				password += WORD_SPACE[Math.abs(generator.nextInt()) % WORD_COUNT]+" ";
 			}
 			if (!hasNumber){
 				if(generator.nextBoolean()){

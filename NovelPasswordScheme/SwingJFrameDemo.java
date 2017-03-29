@@ -36,6 +36,7 @@ public class SwingJFrameDemo extends JFrame {
 	private JTextField displayResult = new JTextField(60);
 	private JButton button1 = new JButton("Generate");
 	private JButton button2 = new JButton("Accept");
+	private JRadioButton check0 = new JRadioButton("2-word",false);
 	private JRadioButton check1 = new JRadioButton("3-word",true);
 	private JRadioButton check2 = new JRadioButton("4-word",false);
 	private ButtonGroup group = new ButtonGroup();
@@ -45,6 +46,7 @@ public class SwingJFrameDemo extends JFrame {
 		super("Demo program for novel password scheme");
 		displayResult.setText(" - Select Generate - ");
 		displayResult.setEditable(false);
+		group.add(check0);
 		group.add(check1);
 		group.add(check2);
 		
@@ -72,9 +74,12 @@ public class SwingJFrameDemo extends JFrame {
 		
 		constraint.gridx = 0;
 		constraint.gridy = 2;
-		add(check1, constraint);
+		add(check0, constraint);
 		
 		constraint.gridx = 1;
+		add(check1, constraint);
+		
+		constraint.gridx = 2;
 		add(check2, constraint);
 		
 		constraint.gridx = 0;
@@ -107,11 +112,14 @@ public class SwingJFrameDemo extends JFrame {
 		// add event listeners for buttons
 		button1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				generator = new PasswordGenerator(3);
-				displayResult.setEditable(true);
+				if (check0.isSelected()){
+					generator = new PasswordGenerator(2);
+				} else if (check1.isSelected()){
+					generator = new PasswordGenerator(3);
+				} else {
+					generator = new PasswordGenerator(4);
+				}
 				displayResult.setText(generator.getPassword());
-				displayResult.setEditable(false);
-				return;
 			}
 		});
 		
