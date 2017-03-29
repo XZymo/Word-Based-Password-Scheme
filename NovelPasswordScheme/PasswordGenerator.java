@@ -21,14 +21,14 @@ public final class PasswordGenerator {
 	public PasswordGenerator(int wordCount){
 		words = processWords();
 		password = "";
+		generator = new SecureRandom(ByteBuffer.allocate(Long.SIZE / Byte.SIZE).putLong(System.nanoTime()).array());
 		generate(wordCount);
 	}
 	
 	//Getters
 	public String getPassword(){ return password; }
 	
-	public void generate(int desiredWordCount){
-		generator = new SecureRandom(ByteBuffer.allocate(Long.SIZE / Byte.SIZE).putLong(System.nanoTime()).array());
+	private void generate(int desiredWordCount){
 		int WORD_COUNT = words.size(), temp;
 		Object[] WORD_SPACE = words.toArray();
 		boolean hasNumber = false;

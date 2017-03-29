@@ -33,7 +33,7 @@ public class SwingJFrameDemo extends JFrame {
 	private JTextField displayResult = new JTextField(60);
 	private JButton button1 = new JButton("Generate");
 	private JButton button2 = new JButton("Accept");
-	private PasswordGenerator generator = new PasswordGenerator(3);
+	private PasswordGenerator generator;
 
 	public SwingJFrameDemo() {
 		super("Demo program for novel password scheme");
@@ -91,10 +91,11 @@ public class SwingJFrameDemo extends JFrame {
 		// add event listeners for buttons
 		button1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				generator.generate(3);
+				generator = new PasswordGenerator(3);
 				displayResult.setEditable(true);
 				displayResult.setText(generator.getPassword());
 				displayResult.setEditable(false);
+				return;
 			}
 		});
 		
