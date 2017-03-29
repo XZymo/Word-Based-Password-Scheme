@@ -11,14 +11,17 @@ import java.awt.event.WindowEvent;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JRadioButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JPanel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
+import javax.swing.ButtonGroup;
 
 /**
  * This program demonstrates how to work with JFrame in Swing.
@@ -33,14 +36,22 @@ public class SwingJFrameDemo extends JFrame {
 	private JTextField displayResult = new JTextField(60);
 	private JButton button1 = new JButton("Generate");
 	private JButton button2 = new JButton("Accept");
+	private JRadioButton check1 = new JRadioButton("3-word",true);
+	private JRadioButton check2 = new JRadioButton("4-word",false);
+	private ButtonGroup group = new ButtonGroup();
 	private PasswordGenerator generator;
 
 	public SwingJFrameDemo() {
 		super("Demo program for novel password scheme");
-
+		displayResult.setText(" - Select Generate - ");
+		displayResult.setEditable(false);
+		group.add(check1);
+		group.add(check2);
+		
 		// sets layout manager
 		setLayout(new GridBagLayout());
-
+		
+		// set up on screen objects in ascending y-axis order (top to bottom)
 		GridBagConstraints constraint = new GridBagConstraints();
 		constraint.insets = new Insets(10, 10, 10, 10);
 		constraint.gridx = 0;
@@ -59,22 +70,27 @@ public class SwingJFrameDemo extends JFrame {
 		constraint.gridx = 1;
 		add(lastField, constraint);
 		
-		displayResult.setText(" - Select Generate - ");
-		displayResult.setEditable(false);
 		constraint.gridx = 0;
-		constraint.gridwidth = 2;
 		constraint.gridy = 2;
-		add(displayResult, constraint);
+		add(check1, constraint);
+		
+		constraint.gridx = 1;
+		add(check2, constraint);
 		
 		constraint.gridx = 0;
 		constraint.gridwidth = 2;
 		constraint.gridy = 3;
+		add(displayResult, constraint);
+		
+		constraint.gridx = 0;
+		constraint.gridwidth = 2;
+		constraint.gridy = 4;
 		
 		add(button1, constraint);
 
 		constraint.gridx = 2;
 		constraint.gridwidth = 2;
-		constraint.gridy = 3;
+		constraint.gridy = 4;
 		add(button2, constraint);
 
 		// adds menu bar
