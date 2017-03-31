@@ -23,21 +23,34 @@ import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
 import javax.swing.ButtonGroup;
 
+import java.util.Random;
 
-public class EnterPassword5Times extends JFrame {
-	private JLabel instructionsJL = new JLabel("Enter your password 5 times: ");
+public class FindPasswordOutOfMany extends JFrame {
+	private JLabel instructionsJL = new JLabel("Find and select your password: ");
 	private JLabel countJL = new JLabel("0 / 5");
-	private JTextField passField = new JTextField(25);
 	private JButton button1 = new JButton("OK");
+	private JRadioButton[] checkBoxes = new JRadioButton[6];
+	private ButtonGroup group = new ButtonGroup();
+	private PasswordGenerator generator;
+	private Random prng;
  
-	int passCount = 0;
+	int passCount = 0, answer;
 
-	public EnterPassword5Times(String fName, String lName, String password) {
-		super("Password Rehearsal 1");
-  
+	public FindPasswordOutOfMany(String fName, String lName, String password) {
+		super("Password Rehearsal 2");
+
 		// sets layout manager
 		setLayout(new GridBagLayout());
-  
+		
+		prng = new Random(System.nanoTime());
+		checkBoxes[0] = new JRadioButton("",true);
+		for (int i = 1; i < 6; ++i){
+			checkBoxes[i] = new JRadioButton("",false);
+		}
+		
+		generateOptions(password);
+		for (JRadioButton b : checkBoxes) group.add(b);
+
 		// set up on screen objects in ascending y-axis order (top to bottom)
 		GridBagConstraints constraint = new GridBagConstraints();
 		constraint.insets = new Insets(10, 10, 10, 10);
@@ -46,16 +59,34 @@ public class EnterPassword5Times extends JFrame {
 
 		add(instructionsJL, constraint); 
   
-		constraint.gridx = 0;
-		constraint.gridy = 1;
-		passField.setTransferHandler(null);
-		add(passField, constraint);
-  
 		constraint.gridx = 1;
 		add(countJL, constraint);
-  
+		
 		constraint.gridx = 0;
-		//constraint.gridwidth = 2;
+		constraint.gridy = 2;
+		add(checkBoxes[0], constraint);
+		
+		constraint.gridx = 1;
+		constraint.gridy = 2;
+		add(checkBoxes[1], constraint);
+
+		constraint.gridx = 2;
+		constraint.gridy = 2;
+		add(checkBoxes[2], constraint);
+		
+		constraint.gridx = 0;
+		constraint.gridy = 3;
+		add(checkBoxes[3], constraint);
+		
+		constraint.gridx = 1;
+		constraint.gridy = 3;
+		add(checkBoxes[4], constraint);
+		
+		constraint.gridx = 2;
+		constraint.gridy = 3;
+		add(checkBoxes[5], constraint);
+		
+		constraint.gridx = 1;
 		constraint.gridy = 4;
   
 		add(button1, constraint);
@@ -75,14 +106,16 @@ public class EnterPassword5Times extends JFrame {
 		button1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if(passCount < 5){
-					if(passField.getText().equals(password)){
-						passCount++;
-						countJL.setText(Integer.toString(passCount) + " / 5");
-						passField.setText("");
+					for (int i = 0; i < 6; ++i){
+						if (checkBoxes[i].isSelected() && i == answer){
+							++passCount;
+							countJL.setText(Integer.toString(passCount) + " / 5");
+							generateOptions(password);
+							return;
+						}
 					}
 				} else {
-					FindPasswordOutOfMany fpom = new FindPasswordOutOfMany(fName, lName, password);
-					dispose();
+					//TODO: switch frames and do whatever
 				}
 			}
 		});
@@ -90,7 +123,7 @@ public class EnterPassword5Times extends JFrame {
 		// adds window event listener
 		addWindowListener(new WindowAdapter() {
 			public void windowClosing(WindowEvent event) {
-				int reply = JOptionPane.showConfirmDialog(EnterPassword5Times.this,
+				int reply = JOptionPane.showConfirmDialog(FindPasswordOutOfMany.this,
 				"Are you sure you want to quit?",
 				"Exit",
 				JOptionPane.YES_NO_OPTION,
@@ -117,12 +150,21 @@ public class EnterPassword5Times extends JFrame {
 
 		setVisible(true);
 	}
+	
+	private void generateOptions(String pswrd){
+		for (JRadioButton b : checkBoxes){
+			generator = new PasswordGenerator(prng.nextInt(4-2)+2);
+			b.setText(generator.getPassword());
+		}
+		answer = prng.nextInt(6);
+		checkBoxes[answer].setText(pswrd);
+	}
 	/***** TEST USAGE *****
 	public static void main(String[] args) {
 		SwingUtilities.invokeLater(new Runnable() {
 			@Override
 			public void run() {
-				new EnterPassword5Times("fsf","ffs","pass");
+				new FindPasswordOutOfMany("fsf","ffs","pass");
 			}
 		});
 	}
