@@ -27,14 +27,14 @@ import java.util.Random;
 
 public class FindPasswordOutOfMany extends JFrame {
 	private JLabel instructionsJL = new JLabel("Find and select your password: ");
-	private JLabel countJL = new JLabel("0 / 5");
+	private JLabel countJL = new JLabel("1 / 5");
 	private JButton button1 = new JButton("OK");
 	private JRadioButton[] checkBoxes = new JRadioButton[6];
 	private ButtonGroup group = new ButtonGroup();
 	private PasswordGenerator generator;
 	private Random prng;
  
-	int passCount = 0, answer;
+	int passCount = 1, answer;
 
 	public FindPasswordOutOfMany(String fName, String lName, String password) {
 		super("Password Rehearsal 2");
@@ -115,9 +115,13 @@ public class FindPasswordOutOfMany extends JFrame {
 						}
 					}
 				} else {
-					//TODO: implement acronyms 
-					FindPasswordUsingAcronym fpua = new FindPasswordUsingAcronym("a d", password);
-					dispose();
+					for (int i = 0; i < 6; ++i){
+						if (checkBoxes[i].isSelected() && i == answer){
+							//TODO: implement acronyms 
+							FindPasswordUsingAcronym fpua = new FindPasswordUsingAcronym("a d", password);
+							dispose();
+						}
+					}					
 				}
 			}
 		});

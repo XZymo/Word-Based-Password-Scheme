@@ -26,14 +26,16 @@ import javax.swing.ButtonGroup;
 
 public class EnterPassword5Times extends JFrame {
 	private JLabel instructionsJL = new JLabel("Enter your password 5 times: ");
-	private JLabel countJL = new JLabel("0 / 5");
+	private JLabel countJL = new JLabel("1 / 5");
 	private JTextField passField = new JTextField(25);
 	private JButton button1 = new JButton("OK");
  
-	int passCount = 0;
+	int passCount = 1;
 
 	public EnterPassword5Times(String fName, String lName, String password) {
 		super("Password Rehearsal 1");
+		
+		EnterPassword5Times.this.getRootPane().setDefaultButton(button1);
   
 		// sets layout manager
 		setLayout(new GridBagLayout());
@@ -76,13 +78,15 @@ public class EnterPassword5Times extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				if(passCount < 5){
 					if(passField.getText().equals(password)){
-						passCount++;
+						++passCount;
 						countJL.setText(Integer.toString(passCount) + " / 5");
 						passField.setText("");
 					}
 				} else {
-					FindPasswordOutOfMany fpom = new FindPasswordOutOfMany(fName, lName, password);
-					dispose();
+					if(passField.getText().equals(password)){
+						FindPasswordOutOfMany fpom = new FindPasswordOutOfMany(fName, lName, password);
+						dispose();
+					}
 				}
 			}
 		});
@@ -117,7 +121,7 @@ public class EnterPassword5Times extends JFrame {
 
 		setVisible(true);
 	}
-	/***** TEST USAGE *****
+	/***** TEST USAGE *****/
 	public static void main(String[] args) {
 		SwingUtilities.invokeLater(new Runnable() {
 			@Override
