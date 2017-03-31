@@ -109,7 +109,7 @@ public class SwingJFrameDemo extends JFrame {
 		// adds menu bar to the frame
 		setJMenuBar(menuBar);
 		
-		// add event listeners for buttons
+		// add action listeners for buttons
 		button1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (check0.isSelected()){
@@ -120,6 +120,38 @@ public class SwingJFrameDemo extends JFrame {
 					generator = new PasswordGenerator(4);
 				}
 				displayResult.setText(generator.getPassword());
+			}
+		});
+
+		button2.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if (firstField.getText().isEmpty()){
+					JOptionPane.showMessageDialog(SwingJFrameDemo.this, "Must enter a first name!");
+					return;
+				}
+				if (lastField.getText().isEmpty()){
+					JOptionPane.showMessageDialog(SwingJFrameDemo.this, "Must enter a last name!");
+					return;
+				}
+				if (displayResult.getText().equals(" - Select Generate - ")){
+					JOptionPane.showMessageDialog(SwingJFrameDemo.this, "Must generate a password first!");
+					return;
+				}
+				int reply = JOptionPane.showConfirmDialog(SwingJFrameDemo.this,
+						("Are you sure you want the password: "+displayResult.getText()+"?"),
+						"Confirm",
+						JOptionPane.YES_NO_OPTION,
+						JOptionPane.QUESTION_MESSAGE);
+				if (reply == JOptionPane.YES_OPTION) {
+					
+					// update database
+					
+					
+					
+					dispose();
+				} else {
+					return;
+				}
 			}
 		});
 		

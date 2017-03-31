@@ -12,3 +12,7 @@ TO BUILD:
   1.  javac -d . NovelPasswordScheme/SwingJFrameDemo.java
   2.  jar -cmf manifest.mf GUI.jar NovelPasswordScheme
   3.  javaw.exe -jar GUI.jar or click on the GUI.jar icon
+  
+FOR DATABASE CONSTRUCTION:
+  1.  javac NovelPasswordScheme/SQLiteJDBC.java
+  2.  java -classpath ".;sqlite-jdbc-3.16.1.jar" NovelPasswordScheme/SQLiteJDBC

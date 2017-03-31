@@ -7,9 +7,7 @@ import java.security.SecureRandom;
 import java.nio.ByteBuffer;
 import java.io.BufferedReader;
 import java.io.FileReader;
-import java.io.FileWriter;
 import java.io.IOException;
-import java.io.InputStreamReader;
 
 public final class PasswordGenerator {
 
@@ -34,7 +32,7 @@ public final class PasswordGenerator {
 		Object[] WORD_SPACE = words.toArray();
 		boolean hasNumber = false;
 
-		while (password.length() < 5 && !hasNumber){
+		while (5 > password.length() || password.length() > 25){
 			password = "";
 			hasNumber = false;
 			numberIndex = generator.nextInt(desiredWordCount+2);
@@ -76,10 +74,11 @@ public final class PasswordGenerator {
 		}
 		return null;
 	}
-	/** TEST USAGE 
+
+	/** TEST USAGE **
 	public static void main(String args[]){
 		PasswordGenerator p = new PasswordGenerator(3);
 		System.out.println(p.getPassword());
 	}
-	**/
+	/**/
 }
