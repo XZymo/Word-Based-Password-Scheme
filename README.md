@@ -7,3 +7,8 @@ TO RUN:
     $~  javac NovelPasswrodScheme/SwingJFrameDemo.java
   3.  Run program by executing the following:
     $~  java NovelPasswordScheme/SwingJFrameDemo
+
+TO BUILD:
+  1.  javac -d . NovelPasswordScheme/SwingJFrameDemo.java
+  2.  jar -cmf manifest.mf GUI.jar NovelPasswordScheme
+  3.  javaw.exe -jar GUI.jar or click on the GUI.jar icon
