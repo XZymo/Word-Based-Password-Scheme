@@ -115,7 +115,9 @@ public class FindPasswordOutOfMany extends JFrame {
 						}
 					}
 				} else {
-					//TODO: switch frames and do whatever
+					//TODO: implement acronyms 
+					FindPasswordUsingAcronym fpua = new FindPasswordUsingAcronym("a d", password);
+					dispose();
 				}
 			}
 		});
