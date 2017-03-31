@@ -143,11 +143,7 @@ public class SwingJFrameDemo extends JFrame {
 						JOptionPane.YES_NO_OPTION,
 						JOptionPane.QUESTION_MESSAGE);
 				if (reply == JOptionPane.YES_OPTION) {
-					
-					// update database
-					
-					
-					
+					EnterPassword5Times epft = new EnterPassword5Times(firstField.getText(),lastField.getText(),displayResult.getText());
 					dispose();
 				} else {
 					return;
