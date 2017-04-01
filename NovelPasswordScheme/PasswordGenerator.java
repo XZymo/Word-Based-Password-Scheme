@@ -55,7 +55,7 @@ public final class PasswordGenerator {
 	private static Set<String> parseDictionary(BufferedReader r) throws IOException {
 		Set<String> lines = new HashSet<String>();
 		for (String line = r.readLine(); line != null; line = r.readLine())
-			if (!lines.contains(line)) lines.add(line);
+			if (!line.contains("'")) lines.add(line);
 		return lines;
 	}
 

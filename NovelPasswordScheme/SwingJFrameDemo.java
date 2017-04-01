@@ -43,6 +43,8 @@ public class SwingJFrameDemo extends JFrame {
 	private DBControl db = new DBControl();
 	private PasswordGenerator generator;
 
+	int type;
+	
 	public SwingJFrameDemo() {
 		super("Demo program for novel password scheme");
 		displayResult.setText(" - Select Generate - ");
@@ -115,10 +117,13 @@ public class SwingJFrameDemo extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				if (check0.isSelected()){
 					generator = new PasswordGenerator(2);
+					type = 2;
 				} else if (check1.isSelected()){
 					generator = new PasswordGenerator(3);
+					type = 3;
 				} else {
 					generator = new PasswordGenerator(4);
+					type = 4;
 				}
 				displayResult.setText(generator.getPassword());
 			}
@@ -144,7 +149,7 @@ public class SwingJFrameDemo extends JFrame {
 						JOptionPane.YES_NO_OPTION,
 						JOptionPane.QUESTION_MESSAGE);
 				if (reply == JOptionPane.YES_OPTION) {
-					int id = db.insertNewUser(firstField.getText(),lastField.getText(),displayResult.getText());
+					int id = db.insertNewUser(firstField.getText(),lastField.getText(),displayResult.getText(),type);
 					EnterPassword5Times epft = new EnterPassword5Times(id,displayResult.getText());
 					dispose();
 				} else {
