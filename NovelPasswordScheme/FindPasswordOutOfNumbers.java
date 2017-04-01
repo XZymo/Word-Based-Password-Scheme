@@ -35,9 +35,9 @@ public class FindPasswordOutOfNumbers extends JFrame {
 	private PasswordGenerator generator;
 	private Random prng;
  
-	int passCount = 1, answer;
+	int passCount = 1, failCount = 0, answer;
 
-	public FindPasswordOutOfNumbers(String password) {
+	public FindPasswordOutOfNumbers(int id, String password) {
 		super("Password Rehearsal 2");
 
 		// sets layout manager	
@@ -115,7 +115,10 @@ public class FindPasswordOutOfNumbers extends JFrame {
 							return;
 						}
 					}
+					++failCount;
 				} else {
+					//TODO: are we checking for answer here?
+					db.updateTest4(id,failCount);
 					JOptionPane.showMessageDialog(FindPasswordOutOfNumbers.this, "CONGATULATIONS! You remembered your password! The test is now over.");
 					dispose();
 				}

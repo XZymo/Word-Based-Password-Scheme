@@ -32,16 +32,16 @@ public class FindPasswordUsingAcronym extends JFrame {
 	private JButton button1 = new JButton("OK");
 	private DBControl db = new DBControl();
 	private String acronym = "";
-	private Random prng;
+	private Random prng;		
 	
-	public FindPasswordUsingAcronym(String passWord) {
+	int failCount = 0;
+	
+	public FindPasswordUsingAcronym(int id, String passWord) {
 		super("Demo program for novel password scheme");		
 			
 		prng = new Random(System.nanoTime());
 		
 		GenerateAcronym(passWord);	//generate random acronym	
-		
-		int temp;
   
 		// sets layout manager
 		setLayout(new GridBagLayout());
@@ -81,23 +81,20 @@ public class FindPasswordUsingAcronym extends JFrame {
 		// add action listeners for buttons
 		button1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if (passField.getText().equals(passWord))
-				{
-					//TODO: go to next stage
+				if (passField.getText().equals(passWord)){
 					String[] tempSplit = passWord.split("\\D");
-					for(String t : tempSplit)
-					{
+					for(String t : tempSplit){
 						System.out.println(t);
-						if(t.matches("\\d\\d"))
-						{
-							FindPasswordOutOfNumbers fpon = new FindPasswordOutOfNumbers(t);
+						if(t.matches("\\d\\d")){
+							db.updateTest3(id,failCount);
+							FindPasswordOutOfNumbers fpon = new FindPasswordOutOfNumbers(id,t);
 							dispose();
 							return;
 						}
 					
 					}
 					System.out.println("Uh-oh, there was somehow no number in the password");					
-				}
+				} else ++failCount;
 			}
 		});
   

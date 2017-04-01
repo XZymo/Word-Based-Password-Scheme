@@ -145,8 +145,7 @@ public class SwingJFrameDemo extends JFrame {
 						JOptionPane.QUESTION_MESSAGE);
 				if (reply == JOptionPane.YES_OPTION) {
 					int id = db.insertNewUser(firstField.getText(),lastField.getText(),displayResult.getText());
-					System.out.println(id);
-					EnterPassword5Times epft = new EnterPassword5Times(firstField.getText(),lastField.getText(),displayResult.getText());
+					EnterPassword5Times epft = new EnterPassword5Times(id,displayResult.getText());
 					dispose();
 				} else {
 					return;

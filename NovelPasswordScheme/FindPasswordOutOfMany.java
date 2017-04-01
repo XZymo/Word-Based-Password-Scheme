@@ -35,9 +35,9 @@ public class FindPasswordOutOfMany extends JFrame {
 	private PasswordGenerator generator;
 	private Random prng;
  
-	int passCount = 1, answer;
+	int passCount = 1, failCount = 0, answer;
 
-	public FindPasswordOutOfMany(String fName, String lName, String password) {
+	public FindPasswordOutOfMany(int id, String password) {
 		super("Password Rehearsal 2");
 
 		// sets layout manager
@@ -115,14 +115,16 @@ public class FindPasswordOutOfMany extends JFrame {
 							return;
 						}
 					}
+					++failCount;
 				} else {
 					for (int i = 0; i < 6; ++i){
 						if (checkBoxes[i].isSelected() && i == answer){
-							//TODO: implement acronyms 
-							FindPasswordUsingAcronym fpua = new FindPasswordUsingAcronym(password);
+							db.updateTest2(id,failCount);
+							FindPasswordUsingAcronym fpua = new FindPasswordUsingAcronym(id, password);
 							dispose();
 						}
-					}					
+					}
+					++failCount;
 				}
 			}
 		});

@@ -16,3 +16,8 @@ TO BUILD:
 FOR DATABASE CONSTRUCTION:
   1.  javac NovelPasswordScheme/SQLiteJDBC.java
   2.  java -classpath ".;sqlite-jdbc-3.16.1.jar" NovelPasswordScheme/SQLiteJDBC
+
+FOR DATABASE QUERYING:
+  1.  .\sqlite3 passwordSchemeData.db
+  
+Authors: Daniel Fitzhenry & Mathieu Cormeau

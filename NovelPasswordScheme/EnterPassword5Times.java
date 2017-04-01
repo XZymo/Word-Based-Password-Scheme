@@ -31,9 +31,10 @@ public class EnterPassword5Times extends JFrame {
 	private JButton button1 = new JButton("OK");
 	private DBControl db = new DBControl();
  
-	int passCount = 1;
+	int passCount = 1, failCount = 0;
+	long start, stop;
 
-	public EnterPassword5Times(String fName, String lName, String password) {
+	public EnterPassword5Times(int id, String password) {
 		super("Password Rehearsal 1");
 		
 		EnterPassword5Times.this.getRootPane().setDefaultButton(button1);
@@ -82,12 +83,15 @@ public class EnterPassword5Times extends JFrame {
 						++passCount;
 						countJL.setText(Integer.toString(passCount) + " / 5");
 						passField.setText("");
-					}
+					} else ++failCount;
 				} else {
 					if(passField.getText().equals(password)){
-						FindPasswordOutOfMany fpom = new FindPasswordOutOfMany(fName, lName, password);
+						stop = System.nanoTime();
+						double time = (stop-start) * 10e-9;
+						db.updateTest1(id,failCount,time);
+						FindPasswordOutOfMany fpom = new FindPasswordOutOfMany(id, password);
 						dispose();
-					}
+					} else ++failCount;
 				}
 			}
 		});
@@ -121,13 +125,16 @@ public class EnterPassword5Times extends JFrame {
 		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 
 		setVisible(true);
+		
+		// start timer
+		start = System.nanoTime();
 	}
 	/***** TEST USAGE *****
 	public static void main(String[] args) {
 		SwingUtilities.invokeLater(new Runnable() {
 			@Override
 			public void run() {
-				new EnterPassword5Times("fsf","ffs","pass");
+				new EnterPassword5Times(1,pass);
 			}
 		});
 	}
