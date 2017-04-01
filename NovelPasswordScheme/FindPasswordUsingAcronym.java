@@ -107,6 +107,7 @@ public class FindPasswordUsingAcronym extends JFrame {
 				JOptionPane.YES_NO_OPTION,
 				JOptionPane.QUESTION_MESSAGE);
 				if (reply == JOptionPane.YES_OPTION) {
+					db.deleteFromUsers(id);
 					dispose();
 				} else {
 				return;

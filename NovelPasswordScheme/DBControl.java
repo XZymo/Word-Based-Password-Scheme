@@ -142,4 +142,21 @@ public class DBControl {
 		}
 		System.out.println("Test result added successfully");
 	}
+	public static void deleteFromUsers(int id){
+		Connection c = null;
+		Statement stmt = null;
+		try {
+			Class.forName(className);
+			c = DriverManager.getConnection(connectionPath);
+			stmt = c.createStatement();
+			String sql = "DELETE FROM USERS WHERE ID="+id+";";
+			stmt.executeUpdate(sql);
+			stmt.close();
+			c.close();
+		} catch ( Exception e ) {
+			System.err.println( e.getClass().getName() + ": " + e.getMessage() );
+			System.exit(0);
+		}
+		System.out.println("Test result added successfully");
+	}
 }
