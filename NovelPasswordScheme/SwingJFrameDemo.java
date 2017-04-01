@@ -46,7 +46,7 @@ public class SwingJFrameDemo extends JFrame {
 	int type;
 	
 	public SwingJFrameDemo() {
-		super("Demo program for novel password scheme");
+		super("Register a password");
 		displayResult.setText(" - Select Generate - ");
 		displayResult.setEditable(false);
 		group.add(check0);

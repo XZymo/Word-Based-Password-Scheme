@@ -9,9 +9,14 @@ TO RUN:
     $~  java NovelPasswordScheme/SwingJFrameDemo
 
 TO BUILD:
+  a)  REGISTER:
   1.  javac -d . NovelPasswordScheme/SwingJFrameDemo.java
-  2.  jar -cmf manifest.mf GUI.jar NovelPasswordScheme
-  3.  javaw.exe -jar GUI.jar or click on the GUI.jar icon
+  2.  jar -cmf manifestRegister.mf Register.jar NovelPasswordScheme
+  3.  javaw.exe -jar Register.jar  *or click on the Register.jar icon*
+  b)  TEST:
+  1.  javac -d . NovelPasswordScheme/TestingPassword.java
+  2.  jar -cmf manifestTest.mf Test.jar NovelPasswordScheme
+  3.  javaw.exe -jar Test.jar  *or click on the Test.jar icon*
   
 FOR DATABASE CONSTRUCTION: (BEWARE! WILL OVERWRITE EXISTING DB)
   1.  javac NovelPasswordScheme/SQLiteJDBC.java

@@ -23,46 +23,51 @@ import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
 import javax.swing.ButtonGroup;
 
-
-public class EnterPassword5Times extends JFrame {
-	private JLabel instructionsJL = new JLabel("Enter your password 5 times: ");
-	private JLabel countJL = new JLabel("1 / 5");
-	private JTextField passField = new JTextField(25);
-	private JButton button1 = new JButton("OK");
+/**
+ * This program demonstrates how to work with JFrame in Swing.
+ * @author www.codejava.net
+ *
+ */
+public class TestingPassword extends JFrame {
+	private JLabel label1 = new JLabel("Enter your first name: ");
+	private JLabel label2 = new JLabel("Enter your last name: ");
+	private JTextField firstField = new JTextField(20);
+	private JTextField lastField = new JTextField(20);
+	private JButton acceptButton = new JButton("Accept");
 	private DBControl db = new DBControl();
- 
-	int passCount = 1, failCount = 0;
-	long start, stop;
+	private PasswordGenerator generator;
 
-	public EnterPassword5Times(int id, String password) {
-		super("Password Rehearsal 1");
+	int type;
+	
+	public TestingPassword() {
+		super("TEST 3 PASSWORDS");
 		
-		EnterPassword5Times.this.getRootPane().setDefaultButton(button1);
-  
 		// sets layout manager
 		setLayout(new GridBagLayout());
-  
+		
 		// set up on screen objects in ascending y-axis order (top to bottom)
 		GridBagConstraints constraint = new GridBagConstraints();
 		constraint.insets = new Insets(10, 10, 10, 10);
 		constraint.gridx = 0;
 		constraint.gridy = 0;
 
-		add(instructionsJL, constraint); 
-  
+		add(label1, constraint);
+
+		constraint.gridx = 1;
+		add(firstField, constraint);
+		
 		constraint.gridx = 0;
 		constraint.gridy = 1;
-		passField.setTransferHandler(null);
-		add(passField, constraint);
-  
+		
+		add(label2, constraint);
+		
 		constraint.gridx = 1;
-		add(countJL, constraint);
-  
-		constraint.gridx = 0;
-		//constraint.gridwidth = 2;
+		add(lastField, constraint);
+		
+		constraint.gridx = 2;
+		constraint.gridwidth = 2;
 		constraint.gridy = 4;
-  
-		add(button1, constraint);
+		add(acceptButton, constraint);
 
 		// adds menu bar
 		JMenuBar menuBar = new JMenuBar();
@@ -74,36 +79,41 @@ public class EnterPassword5Times extends JFrame {
 
 		// adds menu bar to the frame
 		setJMenuBar(menuBar);
-  
-		// add event listeners for buttons
-		button1.addActionListener(new ActionListener() {
+		
+		// add action listeners for buttons
+		acceptButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if(passCount < 5){
-					if(passField.getText().equals(password)){
-						++passCount;
-						countJL.setText(Integer.toString(passCount) + " / 5");
-						passField.setText("");
-					} else ++failCount;
+				if (firstField.getText().isEmpty()){
+					JOptionPane.showMessageDialog(TestingPassword.this, "Must enter a first name!");
+					return;
+				}
+				if (lastField.getText().isEmpty()){
+					JOptionPane.showMessageDialog(TestingPassword.this, "Must enter a last name!");
+					return;
+				}
+				int reply = JOptionPane.showConfirmDialog(TestingPassword.this,
+						"By clicking yes, you will begin your password test where you must enter the corresponding password within 3 tries. Are you ready?",
+						"Confirm",
+						JOptionPane.YES_NO_OPTION,
+						JOptionPane.QUESTION_MESSAGE);
+				if (reply == JOptionPane.YES_OPTION) {
+					String[] pswrds = db.getPasswords(firstField.getText(),lastField.getText());
+				//	EnterPassword5Times epft = new EnterPassword5Times(id,displayResult.getText());
+					dispose();
 				} else {
-					if(passField.getText().equals(password)){
-						stop = System.nanoTime();
-						double time = (stop-start) * 1e-9;
-						db.updateTest1(id,failCount,time);
-						FindPasswordOutOfMany fpom = new FindPasswordOutOfMany(id, password);
-						dispose();
-					} else ++failCount;
+					return;
 				}
 			}
 		});
-  
+		
 		// adds window event listener
 		addWindowListener(new WindowAdapter() {
 			public void windowClosing(WindowEvent event) {
-				int reply = JOptionPane.showConfirmDialog(EnterPassword5Times.this,
-				"Are you sure you want to quit?",
-				"Exit",
-				JOptionPane.YES_NO_OPTION,
-				JOptionPane.QUESTION_MESSAGE);
+				int reply = JOptionPane.showConfirmDialog(TestingPassword.this,
+						"Are you sure you want to quit?",
+						"Exit",
+						JOptionPane.YES_NO_OPTION,
+						JOptionPane.QUESTION_MESSAGE);
 				if (reply == JOptionPane.YES_OPTION) {
 					dispose();
 				} else {
@@ -125,18 +135,14 @@ public class EnterPassword5Times extends JFrame {
 		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 
 		setVisible(true);
-		
-		// start timer
-		start = System.nanoTime();
 	}
-	/***** TEST USAGE *****
+
 	public static void main(String[] args) {
 		SwingUtilities.invokeLater(new Runnable() {
 			@Override
 			public void run() {
-				new EnterPassword5Times(1,pass);
+				new TestingPassword();
 			}
 		});
 	}
-	/**/
 }

@@ -66,7 +66,7 @@ public final class PasswordGenerator {
 			long start = System.nanoTime();
 			result = parseDictionary(r);
 			long stop = System.nanoTime();
-			//("Execution time: " + 10e-9 * (stop-start) + "\n");
+			//("Execution time: " + 1e-9 * (stop-start) + "\n");
 			return result;
 		} catch (IOException e) {
 			System.err.println(e);
