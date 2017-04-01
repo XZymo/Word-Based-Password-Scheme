@@ -119,7 +119,7 @@ public class FindPasswordOutOfNumbers extends JFrame {
 				} else {
 					//TODO: are we checking for answer here?
 					db.updateTest4(id,failCount);
-					JOptionPane.showMessageDialog(FindPasswordOutOfNumbers.this, "CONGATULATIONS! You remembered your password! The test is now over.");
+					JOptionPane.showMessageDialog(FindPasswordOutOfNumbers.this, "CONGATULATIONS! You remember your password! Rehearsal is now over.");
 					dispose();
 				}
 			}

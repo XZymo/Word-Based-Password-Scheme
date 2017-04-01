@@ -3,13 +3,17 @@ package NovelPasswordScheme;
 import java.sql.*;
 
 public class DBControl {
+	
+	private static String className = "org.sqlite.JDBC";
+	private static String connectionPath = "jdbc:sqlite:passwordSchemeData.db";
+	
 	public static int insertNewUser(String fName, String lName, String pswrd, int type){
 		Connection c = null;
 		Statement stmt = null;
 		int id = -1;
 		try {
-			Class.forName("org.sqlite.JDBC");
-			c = DriverManager.getConnection("jdbc:sqlite:passwordSchemeData.db");
+			Class.forName(className);
+			c = DriverManager.getConnection(connectionPath);
 			stmt = c.createStatement();
 			String sql = "INSERT INTO USERS (FNAME,LNAME,PASSWORD,TYPE,T1FAILCOUNT,T1TIME,T2FAILCOUNT,T3FAILCOUNT,T4FAILCOUNT) " +
                    "VALUES ('"+ fName +"', '"+ lName +"', '"+ pswrd +"', "+ type +", 0, 0.0, 0, 0, 0);"; 
@@ -31,8 +35,8 @@ public class DBControl {
 		Connection c = null;
 		Statement stmt = null;
 		try {
-			Class.forName("org.sqlite.JDBC");
-			c = DriverManager.getConnection("jdbc:sqlite:passwordSchemeData.db");
+			Class.forName(className);
+			c = DriverManager.getConnection(connectionPath);
 			stmt = c.createStatement();
 			String sql = "UPDATE USERS SET T1FAILCOUNT="+ failCount +", T1TIME="+ time +" WHERE ID="+id+";";
 			stmt.executeUpdate(sql);
@@ -49,8 +53,8 @@ public class DBControl {
 		Connection c = null;
 		Statement stmt = null;
 		try {
-			Class.forName("org.sqlite.JDBC");
-			c = DriverManager.getConnection("jdbc:sqlite:passwordSchemeData.db");
+			Class.forName(className);
+			c = DriverManager.getConnection(connectionPath);
 			stmt = c.createStatement();
 			String sql = "UPDATE USERS SET T2FAILCOUNT="+ failCount +" WHERE ID="+id+";";
 			stmt.executeUpdate(sql);
@@ -67,8 +71,8 @@ public class DBControl {
 		Connection c = null;
 		Statement stmt = null;
 		try {
-			Class.forName("org.sqlite.JDBC");
-			c = DriverManager.getConnection("jdbc:sqlite:passwordSchemeData.db");
+			Class.forName(className);
+			c = DriverManager.getConnection(connectionPath);
 			stmt = c.createStatement();
 			String sql = "UPDATE USERS SET T3FAILCOUNT="+ failCount +" WHERE ID="+id+";";
 			stmt.executeUpdate(sql);
@@ -85,8 +89,8 @@ public class DBControl {
 		Connection c = null;
 		Statement stmt = null;
 		try {
-			Class.forName("org.sqlite.JDBC");
-			c = DriverManager.getConnection("jdbc:sqlite:passwordSchemeData.db");
+			Class.forName(className);
+			c = DriverManager.getConnection(connectionPath);
 			stmt = c.createStatement();
 			String sql = "UPDATE USERS SET T4FAILCOUNT="+ failCount +" WHERE ID="+id+";";
 			stmt.executeUpdate(sql);
@@ -104,8 +108,8 @@ public class DBControl {
 		Statement stmt = null;
 		String[] results = new String[3];
 		try {
-			Class.forName("org.sqlite.JDBC");
-			c = DriverManager.getConnection("jdbc:sqlite:passwordSchemeData.db");
+			Class.forName(className);
+			c = DriverManager.getConnection(connectionPath);
 			stmt = c.createStatement();
 			ResultSet rs = stmt.executeQuery("SELECT PASSWORD FROM USERS WHERE FNAME='"+fName+"' AND LNAME='"+lName+"'");
 			for (int i = 0; rs.next(); ++i){
@@ -124,8 +128,8 @@ public class DBControl {
 		Connection c = null;
 		Statement stmt = null;
 		try {
-			Class.forName("org.sqlite.JDBC");
-			c = DriverManager.getConnection("jdbc:sqlite:passwordSchemeData.db");
+			Class.forName(className);
+			c = DriverManager.getConnection(connectionPath);
 			stmt = c.createStatement();
 			String sql = "INSERT INTO RESULTS (FNAME,LNAME,PASSWORD1,PASSWORD2,PASSWORD3,P1ATTEMPTS,P1TIME,P2ATTEMPTS,P2TIME,P3ATTEMPTS, P3TIME) " +
                    "VALUES ('"+fName+"','"+lName+"','"+p1+"','"+p2+"','"+p3+"',"+t1+","+time1+","+t2+","+time2+","+t3+","+time3+");"; 
