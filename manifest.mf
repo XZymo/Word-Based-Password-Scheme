@@ -1,2 +1,2 @@
 Main-Class: NovelPasswordScheme.SwingJFrameDemo
-Class-Path: ~/NovelPasswordScheme/
+Class-Path: ~/NovelPasswordScheme/ sqlite-jdbc-3.16.1.jar

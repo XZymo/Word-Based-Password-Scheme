@@ -31,6 +31,7 @@ public class FindPasswordOutOfNumbers extends JFrame {
 	private JButton button1 = new JButton("OK");
 	private JRadioButton[] checkBoxes = new JRadioButton[6];
 	private ButtonGroup group = new ButtonGroup();
+	private DBControl db = new DBControl();
 	private PasswordGenerator generator;
 	private Random prng;
  

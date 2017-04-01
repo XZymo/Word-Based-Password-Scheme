@@ -11,14 +11,15 @@ public class SQLiteJDBC {
 			c = DriverManager.getConnection("jdbc:sqlite:passwordSchemeData.db");
 			stmt = c.createStatement();
 			String sql = "CREATE TABLE USERS " +
-					"(ID INT PRIMARY KEY     NOT NULL," +
-					"FNAME           TEXT    NOT NULL, " + 
-					"LNAME           INT     NOT NULL, " + 
-					"PASSWORD        CHAR(25), " +
-					"T1ATTEMPTCOUNT  INT, " + 
-					"T2ATTEMPTCOUNT  INT, " + 
-					"T3ATTEMPTCOUNT  INT, " + 
-					"T4ATTEMPTCOUNT  INT)"; 
+					"(ID INTEGER PRIMARY KEY  AUTOINCREMENT," +
+					"FNAME        TEXT    NOT NULL, " + 
+					"LNAME        INT     NOT NULL, " + 
+					"PASSWORD     CHAR(25), " +
+					"T1FAILCOUNT  INT, " + 
+					"T1TIME       REAL, " +
+					"T2FAILCOUNT  INT, " + 
+					"T3FAILCOUNT  INT, " + 
+					"T4FAILCOUNT  INT)"; 
 			stmt.executeUpdate(sql);
 			stmt.close();
 			c.close();

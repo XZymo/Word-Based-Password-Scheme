@@ -30,6 +30,7 @@ public class FindPasswordUsingAcronym extends JFrame {
 	private JLabel acronymJL = new JLabel("");
 	private JTextField passField = new JTextField(20);
 	private JButton button1 = new JButton("OK");
+	private DBControl db = new DBControl();
 	private String acronym = "";
 	private Random prng;
 	
@@ -146,7 +147,7 @@ public class FindPasswordUsingAcronym extends JFrame {
 		acronym += pw.charAt(lastIndex);
 	}
 	
-	/*******TEST PURPOSES****************/
+	/*******TEST PURPOSES****************
 	public static void main(String[] args) {
 		SwingUtilities.invokeLater(new Runnable() {
 			@Override

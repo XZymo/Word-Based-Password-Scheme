@@ -40,6 +40,7 @@ public class SwingJFrameDemo extends JFrame {
 	private JRadioButton check1 = new JRadioButton("3-word",true);
 	private JRadioButton check2 = new JRadioButton("4-word",false);
 	private ButtonGroup group = new ButtonGroup();
+	private DBControl db = new DBControl();
 	private PasswordGenerator generator;
 
 	public SwingJFrameDemo() {
@@ -143,6 +144,8 @@ public class SwingJFrameDemo extends JFrame {
 						JOptionPane.YES_NO_OPTION,
 						JOptionPane.QUESTION_MESSAGE);
 				if (reply == JOptionPane.YES_OPTION) {
+					int id = db.insertNewUser(firstField.getText(),lastField.getText(),displayResult.getText());
+					System.out.println(id);
 					EnterPassword5Times epft = new EnterPassword5Times(firstField.getText(),lastField.getText(),displayResult.getText());
 					dispose();
 				} else {

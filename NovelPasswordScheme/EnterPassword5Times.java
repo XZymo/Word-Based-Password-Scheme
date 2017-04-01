@@ -29,6 +29,7 @@ public class EnterPassword5Times extends JFrame {
 	private JLabel countJL = new JLabel("1 / 5");
 	private JTextField passField = new JTextField(25);
 	private JButton button1 = new JButton("OK");
+	private DBControl db = new DBControl();
  
 	int passCount = 1;
 
@@ -121,7 +122,7 @@ public class EnterPassword5Times extends JFrame {
 
 		setVisible(true);
 	}
-	/***** TEST USAGE *****/
+	/***** TEST USAGE *****
 	public static void main(String[] args) {
 		SwingUtilities.invokeLater(new Runnable() {
 			@Override
