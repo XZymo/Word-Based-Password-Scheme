@@ -118,7 +118,7 @@ public class FindPasswordOutOfMany extends JFrame {
 					for (int i = 0; i < 6; ++i){
 						if (checkBoxes[i].isSelected() && i == answer){
 							//TODO: implement acronyms 
-							FindPasswordUsingAcronym fpua = new FindPasswordUsingAcronym("a d", password);
+							FindPasswordUsingAcronym fpua = new FindPasswordUsingAcronym(password);
 							dispose();
 						}
 					}					

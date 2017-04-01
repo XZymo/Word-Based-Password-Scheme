@@ -115,7 +115,6 @@ public class FindPasswordOutOfNumbers extends JFrame {
 						}
 					}
 				} else {
-					//TODO: maybe a message box
 					JOptionPane.showMessageDialog(FindPasswordOutOfNumbers.this, "CONGATULATIONS! You remembered your password! The test is now over.");
 					dispose();
 				}

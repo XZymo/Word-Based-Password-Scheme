@@ -23,14 +23,24 @@ import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
 import javax.swing.ButtonGroup;
 
+import java.util.Random;
+
 public class FindPasswordUsingAcronym extends JFrame {
 	private JLabel instructionsJL = new JLabel("Below are the first and last letters of your password(not including the number),. Write your whole password in the text field below.");
 	private JLabel acronymJL = new JLabel("");
 	private JTextField passField = new JTextField(20);
 	private JButton button1 = new JButton("OK");
+	private String acronym = "";
+	private Random prng;
 	
-	public FindPasswordUsingAcronym(String acronym, String passWord) {
-		super("Demo program for novel password scheme");
+	public FindPasswordUsingAcronym(String passWord) {
+		super("Demo program for novel password scheme");		
+			
+		prng = new Random(System.nanoTime());
+		
+		GenerateAcronym(passWord);	//generate random acronym	
+		
+		int temp;
   
 		// sets layout manager
 		setLayout(new GridBagLayout());
@@ -73,7 +83,19 @@ public class FindPasswordUsingAcronym extends JFrame {
 				if (passField.getText().equals(passWord))
 				{
 					//TODO: go to next stage
-					dispose();
+					String[] tempSplit = passWord.split("\\D");
+					for(String t : tempSplit)
+					{
+						System.out.println(t);
+						if(t.matches("\\d\\d"))
+						{
+							FindPasswordOutOfNumbers fpon = new FindPasswordOutOfNumbers(t);
+							dispose();
+							return;
+						}
+					
+					}
+					System.out.println("Uh-oh, there was somehow no number in the password");					
 				}
 			}
 		});
@@ -108,13 +130,29 @@ public class FindPasswordUsingAcronym extends JFrame {
 
 		setVisible(true);
 	}
-	/*******TEST PURPOSES****************
+	
+	private void GenerateAcronym(String pw)
+	{
+		acronym += pw.charAt(0) + " ";
+		int lastIndex = pw.length() - 1;
+		int lastValidRandChar = pw.length() - 3;
+		
+		int temp = prng.nextInt(lastValidRandChar) + 1;
+		
+		while(pw.charAt(temp) == pw.charAt(0) || pw.charAt(temp) == pw.charAt(lastIndex))
+			temp = prng.nextInt(lastValidRandChar) + 1;
+		
+		acronym += pw.charAt(temp) + " ";		
+		acronym += pw.charAt(lastIndex);
+	}
+	
+	/*******TEST PURPOSES****************/
 	public static void main(String[] args) {
 		SwingUtilities.invokeLater(new Runnable() {
 			@Override
 			public void run() {
-				new FindPasswordUsingAcronym("a d", "12alreadybeenchewed");
+				new FindPasswordUsingAcronym("12alreadybeenchewed");
 			}
 		});
-	}*/
+	}/**/
 }
