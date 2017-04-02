@@ -23,20 +23,30 @@ import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
 import javax.swing.ButtonGroup;
 
-
-public class TestingPassword extends JFrame {
+public class Registration extends JFrame {
 	private JLabel label1 = new JLabel("Enter your first name: ");
 	private JLabel label2 = new JLabel("Enter your last name: ");
 	private JTextField firstField = new JTextField(20);
 	private JTextField lastField = new JTextField(20);
-	private JButton acceptButton = new JButton("Accept");
+	private JTextField displayResult = new JTextField(60);
+	private JButton button1 = new JButton("Generate");
+	private JButton button2 = new JButton("Accept");
+	private JRadioButton check0 = new JRadioButton("2-word",false);
+	private JRadioButton check1 = new JRadioButton("3-word",true);
+	private JRadioButton check2 = new JRadioButton("4-word",false);
+	private ButtonGroup group = new ButtonGroup();
 	private DBControl db = new DBControl();
 	private PasswordGenerator generator;
 
 	int type;
 	
-	public TestingPassword() {
-		super("TEST 3 PASSWORDS");
+	public Registration() {
+		super("Register a password");
+		displayResult.setText(" - Select Generate - ");
+		displayResult.setEditable(false);
+		group.add(check0);
+		group.add(check1);
+		group.add(check2);
 		
 		// sets layout manager
 		setLayout(new GridBagLayout());
@@ -60,10 +70,31 @@ public class TestingPassword extends JFrame {
 		constraint.gridx = 1;
 		add(lastField, constraint);
 		
+		constraint.gridx = 0;
+		constraint.gridy = 2;
+		add(check0, constraint);
+		
+		constraint.gridx = 1;
+		add(check1, constraint);
+		
+		constraint.gridx = 2;
+		add(check2, constraint);
+		
+		constraint.gridx = 0;
+		constraint.gridwidth = 2;
+		constraint.gridy = 3;
+		add(displayResult, constraint);
+		
+		constraint.gridx = 0;
+		constraint.gridwidth = 2;
+		constraint.gridy = 4;
+		
+		add(button1, constraint);
+
 		constraint.gridx = 2;
 		constraint.gridwidth = 2;
 		constraint.gridy = 4;
-		add(acceptButton, constraint);
+		add(button2, constraint);
 
 		// adds menu bar
 		JMenuBar menuBar = new JMenuBar();
@@ -77,32 +108,44 @@ public class TestingPassword extends JFrame {
 		setJMenuBar(menuBar);
 		
 		// add action listeners for buttons
-		acceptButton.addActionListener(new ActionListener() {
+		button1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if (check0.isSelected()){
+					generator = new PasswordGenerator(2);
+					type = 2;
+				} else if (check1.isSelected()){
+					generator = new PasswordGenerator(3);
+					type = 3;
+				} else {
+					generator = new PasswordGenerator(4);
+					type = 4;
+				}
+				displayResult.setText(generator.getPassword());
+			}
+		});
+
+		button2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (firstField.getText().isEmpty()){
-					JOptionPane.showMessageDialog(TestingPassword.this, "Must enter a first name!");
+					JOptionPane.showMessageDialog(Registration.this, "Must enter a first name!");
 					return;
 				}
 				if (lastField.getText().isEmpty()){
-					JOptionPane.showMessageDialog(TestingPassword.this, "Must enter a last name!");
+					JOptionPane.showMessageDialog(Registration.this, "Must enter a last name!");
 					return;
 				}
-				int reply = JOptionPane.showConfirmDialog(TestingPassword.this,
-						"By clicking yes, you will begin your password test where you must enter the corresponding password within 3 tries. \n Are you ready?",
+				if (displayResult.getText().equals(" - Select Generate - ")){
+					JOptionPane.showMessageDialog(Registration.this, "Must generate a password first!");
+					return;
+				}
+				int reply = JOptionPane.showConfirmDialog(Registration.this,
+						("Are you sure you want the password: "+displayResult.getText()+"?"),
 						"Confirm",
 						JOptionPane.YES_NO_OPTION,
 						JOptionPane.QUESTION_MESSAGE);
 				if (reply == JOptionPane.YES_OPTION) {
-					String[] pswrds = db.getPasswords(firstField.getText(),lastField.getText());
-					for(String s : pswrds)
-					{
-						if(s == null)
-						{
-							JOptionPane.showMessageDialog(TestingPassword.this, "Missing one or more passwords!");
-							return;
-						}
-					}
-					PasswordsFinalTest pft = new PasswordsFinalTest(firstField.getText(), lastField.getText(), pswrds);
+					int id = db.insertNewUser(firstField.getText(),lastField.getText(),displayResult.getText(),type);
+					EnterPassword5Times epft = new EnterPassword5Times(id,displayResult.getText());
 					dispose();
 				} else {
 					return;
@@ -113,7 +156,7 @@ public class TestingPassword extends JFrame {
 		// adds window event listener
 		addWindowListener(new WindowAdapter() {
 			public void windowClosing(WindowEvent event) {
-				int reply = JOptionPane.showConfirmDialog(TestingPassword.this,
+				int reply = JOptionPane.showConfirmDialog(Registration.this,
 						"Are you sure you want to quit?",
 						"Exit",
 						JOptionPane.YES_NO_OPTION,
@@ -145,7 +188,7 @@ public class TestingPassword extends JFrame {
 		SwingUtilities.invokeLater(new Runnable() {
 			@Override
 			public void run() {
-				new TestingPassword();
+				new Registration();
 			}
 		});
 	}

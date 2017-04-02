@@ -26,7 +26,7 @@ import javax.swing.ButtonGroup;
 import java.util.Random;
 
 public class FindPasswordUsingAcronym extends JFrame {
-	private JLabel instructionsJL = new JLabel("Below are the first and last letters of your password(not including the number),. Write your whole password in the text field below.");
+	private JLabel instructionsJL = new JLabel("Below are the first and last characters of your password, as well as one random character in the middle. \n Write your whole password in the text field below.");
 	private JLabel acronymJL = new JLabel("");
 	private JTextField passField = new JTextField(20);
 	private JButton button1 = new JButton("OK");
@@ -37,7 +37,9 @@ public class FindPasswordUsingAcronym extends JFrame {
 	int failCount = 0;
 	
 	public FindPasswordUsingAcronym(int id, String passWord) {
-		super("Demo program for novel password scheme");		
+		super("Demo program for novel password scheme");	
+
+		FindPasswordUsingAcronym.this.getRootPane().setDefaultButton(button1);		
 			
 		prng = new Random(System.nanoTime());
 		

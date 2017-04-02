@@ -157,9 +157,12 @@ public class FindPasswordOutOfNumbers extends JFrame {
 		setVisible(true);
 	}
  
-	private void generateOptions(String pswrd){
+	private void generateOptions(String pswrd){		
 		for (JRadioButton b : checkBoxes){
 			int temp = prng.nextInt(100);
+			while(Integer.toString(temp).equals(pswrd))
+				temp = prng.nextInt(100);
+			
 			String tempStr = (temp < 10) ? "0" + (Integer.toString(temp)) : Integer.toString(temp);
 			b.setText(tempStr);
 		}
