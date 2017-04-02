@@ -8,7 +8,7 @@ public class SQLiteJDBC {
 		Statement stmt = null;
 		try {
 			Class.forName("org.sqlite.JDBC");
-			c = DriverManager.getConnection("jdbc:sqlite:passwordSchemeData.db");
+			c = DriverManager.getConnection("jdbc:sqlite:data/passwordSchemeData.db");
 			stmt = c.createStatement();
 			String sql = "DROP TABLE IF EXISTS USERS;";
 			stmt.executeUpdate(sql);

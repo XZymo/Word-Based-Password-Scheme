@@ -5,7 +5,7 @@ import java.sql.*;
 public class DBControl {
 	
 	private static String className = "org.sqlite.JDBC";
-	private static String connectionPath = "jdbc:sqlite:passwordSchemeData.db";
+	private static String connectionPath = "jdbc:sqlite:data/passwordSchemeData.db";
 	
 	public static int insertNewUser(String fName, String lName, String pswrd, int type){
 		Connection c = null;
@@ -157,6 +157,6 @@ public class DBControl {
 			System.err.println( e.getClass().getName() + ": " + e.getMessage() );
 			System.exit(0);
 		}
-		System.out.println("Test result added successfully");
+		System.out.println("User removed successfully");
 	}
 }

@@ -1,2 +1,2 @@
 Main-Class: NovelPasswordScheme.TestingPassword
-Class-Path: ~/NovelPasswordScheme/ sqlite-jdbc-3.16.1.jar
+Class-Path: data/sqlite-jdbc-3.16.1.jar
