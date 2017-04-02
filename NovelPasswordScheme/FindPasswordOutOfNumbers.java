@@ -35,10 +35,12 @@ public class FindPasswordOutOfNumbers extends JFrame {
 	private PasswordGenerator generator;
 	private Random prng;
  
-	int passCount = 1, failCount = 0, answer;
+	private int passCount = 1, failCount = 0, answer;
 
 	public FindPasswordOutOfNumbers(int id, String password) {
 		super("Password Rehearsal 2");
+		
+		FindPasswordOutOfNumbers.this.getRootPane().setDefaultButton(button1);
 
 		// sets layout manager	
 		setLayout(new GridBagLayout());

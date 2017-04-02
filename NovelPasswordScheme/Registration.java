@@ -42,6 +42,9 @@ public class Registration extends JFrame {
 	
 	public Registration() {
 		super("Register a password");
+		
+		Registration.this.getRootPane().setDefaultButton(button1);
+		
 		displayResult.setText(" - Select Generate - ");
 		displayResult.setEditable(false);
 		group.add(check0);

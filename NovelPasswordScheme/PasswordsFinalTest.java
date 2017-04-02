@@ -26,7 +26,6 @@ import javax.swing.ButtonGroup;
 import java.util.Random;
 import java.util.ArrayList;
 
-
 public class PasswordsFinalTest extends JFrame {
 	private JLabel instructionsJL = new JLabel("");
 	private JLabel countJL = new JLabel("1 / 3");
@@ -34,11 +33,9 @@ public class PasswordsFinalTest extends JFrame {
 	private JButton button1 = new JButton("OK");
 	private DBControl db = new DBControl();
 	
-	private int failResults[] = new int[3];
+	private int failResults[] = new int[3], passCount = 1, failCount = 0, passwordCount = 0;
 	private double timeResults[] = new double[3];
- 
-	int passCount = 1, failCount = 0, passwordCount = 0;
-	long start, stop;
+	private long start, stop;
 	
 	private Random prng;
 	
@@ -49,9 +46,8 @@ public class PasswordsFinalTest extends JFrame {
 		
 		PasswordsFinalTest.this.getRootPane().setDefaultButton(button1);
 		
-		for(int i = 0; i < 3; i++)
-		{
-			failResults[i] = 0;
+		for(int i = 0; i < 3; i++){
+			failResults[i] = 1;
 			timeResults[i] = 0.0;
 			randList.add(i);
 		}
@@ -105,17 +101,18 @@ public class PasswordsFinalTest extends JFrame {
 				
 				if(passwordCount > -1)
 				{
-					if(failResults[passwordCount] + 1 < 3){
+					if(failResults[passwordCount] < 3){
 						if(passField.getText().equals(passwords[passwordCount])){
 							//System.out.println("Correct password: " + passwords[passwordCount] + " : " + passField.getText());
 							++passCount;
 							stop = System.nanoTime();
-							timeResults[passwordCount] = (stop-start) * 1e-9;						
+							timeResults[passwordCount] = (stop-start) * 1e-9;
+							start = stop;
 							passField.setText("");
 							passwordCount = generateNum();
 							if(passwordCount > -1)
 							{
-								countJL.setText(Integer.toString(failResults[passwordCount] + 1) + " / 3");							
+								countJL.setText(Integer.toString(failResults[passwordCount]) + " / 3");							
 								instructionsJL.setText("Enter password #" + Integer.toString(passwordCount + 1));	
 							}	
 							else
@@ -130,7 +127,7 @@ public class PasswordsFinalTest extends JFrame {
 						} else {						
 							++failResults[passwordCount];
 							//System.out.println("Incorrect password: " + passwords[passwordCount] + " : " + passField.getText() + " Fail count: " + failResults[passwordCount]);
-							countJL.setText(Integer.toString(failResults[passwordCount] + 1) + " / 3");
+							countJL.setText(Integer.toString(failResults[passwordCount]) + " / 3");
 							passField.setText("");
 						}
 					} else {
@@ -138,11 +135,12 @@ public class PasswordsFinalTest extends JFrame {
 						//System.out.println("Incorrect password: " + passwords[passwordCount] + " : " + passField.getText() + " Fail count: " + failResults[passwordCount]);
 						stop = System.nanoTime();
 						timeResults[passwordCount] = (stop-start) * 1e-9;
+						start = stop;
 						passField.setText("");
 						passwordCount = generateNum();
 						if(passwordCount > -1)
 						{
-							countJL.setText(Integer.toString(failResults[passwordCount] + 1) + " / 3");							
+							countJL.setText(Integer.toString(failResults[passwordCount]) + " / 3");							
 							instructionsJL.setText("Enter password #" + Integer.toString(passwordCount + 1));	
 						}
 						else

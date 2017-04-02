@@ -34,7 +34,7 @@ public class FindPasswordUsingAcronym extends JFrame {
 	private String acronym = "";
 	private Random prng;		
 	
-	int failCount = 0;
+	private int failCount = 0;
 	
 	public FindPasswordUsingAcronym(int id, String passWord) {
 		super("Demo program for novel password scheme");	

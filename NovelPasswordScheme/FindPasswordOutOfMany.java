@@ -34,11 +34,13 @@ public class FindPasswordOutOfMany extends JFrame {
 	private DBControl db = new DBControl();
 	private PasswordGenerator generator;
 	private Random prng;
- 
-	int passCount = 1, failCount = 0, answer;
+
+	private int passCount = 1, failCount = 0, answer;
 
 	public FindPasswordOutOfMany(int id, String password) {
 		super("Password Rehearsal 2");
+		
+		FindPasswordOutOfMany.this.getRootPane().setDefaultButton(button1);
 
 		// sets layout manager
 		setLayout(new GridBagLayout());

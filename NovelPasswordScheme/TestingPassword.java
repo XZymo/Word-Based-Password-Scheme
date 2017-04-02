@@ -23,7 +23,6 @@ import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
 import javax.swing.ButtonGroup;
 
-
 public class TestingPassword extends JFrame {
 	private JLabel label1 = new JLabel("Enter your first name: ");
 	private JLabel label2 = new JLabel("Enter your last name: ");
@@ -37,6 +36,8 @@ public class TestingPassword extends JFrame {
 	
 	public TestingPassword() {
 		super("TEST 3 PASSWORDS");
+		
+		TestingPassword.this.getRootPane().setDefaultButton(acceptButton);
 		
 		// sets layout manager
 		setLayout(new GridBagLayout());

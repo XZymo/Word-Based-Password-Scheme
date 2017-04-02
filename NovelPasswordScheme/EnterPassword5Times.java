@@ -23,7 +23,6 @@ import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
 import javax.swing.ButtonGroup;
 
-
 public class EnterPassword5Times extends JFrame {
 	private JLabel instructionsJL = new JLabel("Enter your password 5 times: ");
 	private JLabel countJL = new JLabel("1 / 5");
@@ -31,8 +30,8 @@ public class EnterPassword5Times extends JFrame {
 	private JButton button1 = new JButton("OK");
 	private DBControl db = new DBControl();
  
-	int passCount = 1, failCount = 0;
-	long start, stop;
+	private int passCount = 1, failCount = 0;
+	private long start, stop;
 
 	public EnterPassword5Times(int id, String password) {
 		super("Password Rehearsal 1");
