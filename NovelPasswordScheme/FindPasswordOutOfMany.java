@@ -176,7 +176,7 @@ public class FindPasswordOutOfMany extends JFrame {
 		SwingUtilities.invokeLater(new Runnable() {
 			@Override
 			public void run() {
-				new FindPasswordOutOfMany("fsf","ffs","pass");
+				new FindPasswordOutOfMany(100,"flaysfreewill11");
 			}
 		});
 	}

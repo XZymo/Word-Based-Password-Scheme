@@ -152,7 +152,7 @@ public class FindPasswordUsingAcronym extends JFrame {
 		SwingUtilities.invokeLater(new Runnable() {
 			@Override
 			public void run() {
-				new FindPasswordUsingAcronym("12alreadybeenchewed");
+				new FindPasswordUsingAcronym(100,"flaysfreewill11");
 			}
 		});
 	}/**/

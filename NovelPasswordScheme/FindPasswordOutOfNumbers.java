@@ -176,7 +176,7 @@ public class FindPasswordOutOfNumbers extends JFrame {
 		SwingUtilities.invokeLater(new Runnable() {
 			@Override
 			public void run() {
-				new FindPasswordOutOfNumbers("22");
+				new FindPasswordOutOfNumbers(100,"11");
 			}
 		});
 	}
